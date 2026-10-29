@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" data-t="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a1b">
+<title>Jospar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="/config.js"></script><script src="/validation.js"></script>
+<script>
+/* Вставьте сюда конфиг Firebase (Project settings -> Web app), чтобы включить настоящую почту/SMS и сервер.
+   Пока там null, сайт работает в демо-режиме: данные в браузере, код подтверждения показывается на экране. */
+window.FIREBASE_CONFIG = window.JOSPAR_CONFIG || null;
+</script>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b7bff"/><stop offset="1" stop-color="#4f8cff"/></linearGradient></defs></svg>
+<div id="root"></div><div id="recaptcha"></div>
+<div class="modal" id="modal" hidden><div class="mb" id="mb" role="dialog" aria-modal="true" aria-label="Jospar"></div></div>
+<div class="toast" id="toast" hidden role="status"><span id="tm"></span><button id="tu" type="button"></button></div>
+<script src="/app.js" defer></script>
+</body>
+</html>

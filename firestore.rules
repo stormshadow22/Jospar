@@ -1,0 +1,7 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Клиенты не ходят в базу напрямую: все операции идут через API (firebase-admin).
+    match /{document=**} { allow read, write: if false; }
+  }
+}

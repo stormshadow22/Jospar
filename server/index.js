@@ -1,0 +1,21 @@
+const express=require('express'),path=require('path');
+const app=express(), cloud=process.env.JOSPAR_MODE==='firebase';
+let admin,db;
+if(cloud){const {initializeApp}=require('firebase-admin/app'),{getFirestore}=require('firebase-admin/firestore'),{getAuth}=require('firebase-admin/auth');initializeApp();admin={auth:getAuth};db=getFirestore()}
+app.disable('x-powered-by');app.use(express.json({limit:'700kb'}));
+app.use((q,r,n)=>{r.set({'X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'strict-origin-when-cross-origin'});n()});
+const wrap=fn=>(q,r,n)=>Promise.resolve(fn(q,r,n)).catch(n);
+const hits=new Map();app.use('/api',(q,r,n)=>{const now=Date.now();for(const [ip,v] of hits)if(now-v.at>60000)hits.delete(ip);let h=hits.get(q.ip);if(!h||now-h.at>60000)h={at:now,n:0};hits.set(q.ip,h);if(++h.n>120)return r.status(429).json({code:'eRate'});n()});
+app.get('/api/health',wrap(async(q,r)=>{if(db)await db.collection('_health').limit(1).get();r.json({ok:true,mode:cloud?'firebase':'local'})}));
+app.use('/api',(q,r,n)=>cloud?n():r.status(503).json({code:'eConfiguration'}));
+const auth=wrap(async(q,r,n)=>{try{q.user=await admin.auth().verifyIdToken((q.headers.authorization||'').replace(/^Bearer /,''),true)}catch{ return r.status(401).json({code:'eAuth'})}if(q.user.email&&!q.user.email_verified)return r.status(403).json({code:'eVerify'});n()});
+const NAME=/^[\p{L}][\p{L}\p{N}_.]{2,19}$/u;
+app.get('/api/username-available',wrap(async(q,r)=>{const u=String(q.query.u||'');if(!NAME.test(u))return r.json({free:false});r.json({free:!(await db.collection('usernames').doc(u.toLowerCase()).get()).exists})}));
+app.post('/api/profile',auth,wrap(async(q,r)=>{const u=String(q.body.username||'');if(!NAME.test(u))return r.status(400).json({code:'eUser'});await db.runTransaction(async tx=>{const ref=db.collection('users').doc(q.user.uid),nr=db.collection('usernames').doc(u.toLowerCase()),old=await tx.get(ref),name=await tx.get(nr);if(old.exists&&old.data().profile)return;if(name.exists&&name.data().uid!==q.user.uid){const e=Error('taken');e.status=409;e.code='eTaken';throw e}tx.set(nr,{uid:q.user.uid});tx.set(ref,{profile:{username:u,method:q.user.email?'email':'phone',contact:q.user.email||q.user.phone_number},data:null,version:0},{merge:true})});r.json({ok:true})}));
+app.delete('/api/account',auth,wrap(async(q,r)=>{const ref=db.collection('users').doc(q.user.uid),d=await ref.get(),batch=db.batch();if(d.exists&&d.data().profile)batch.delete(db.collection('usernames').doc(d.data().profile.username.toLowerCase()));batch.delete(ref);await batch.commit();await admin.auth().deleteUser(q.user.uid);r.json({ok:true})}));
+app.get('/api/state',auth,wrap(async(q,r)=>{const d=await db.collection('users').doc(q.user.uid).get(),v=d.exists?d.data():{};r.json({profile:v.profile||null,data:v.data||null,version:v.version||0})}));
+const {validState}=require('./validation');
+app.put('/api/state',auth,wrap(async(q,r)=>{if(!validState(q.body.data)||!Number.isInteger(q.body.version))return r.status(400).json({code:'eInvalidData'});let version;await db.runTransaction(async tx=>{const ref=db.collection('users').doc(q.user.uid),d=await tx.get(ref),v=d.exists?d.data():{};if((v.version||0)!==q.body.version){const e=Error('conflict');e.status=409;e.code='eConflict';throw e}version=q.body.version+1;tx.set(ref,{data:q.body.data,version},{merge:true})});r.json({ok:true,version})}));
+const publicDir=path.resolve(__dirname,'../public');app.use(express.static(publicDir));app.get('*',(q,r)=>r.sendFile(path.join(publicDir,'index.html')));
+app.use((e,q,r,n)=>{console.error('Request failed:',e.code||e.name);r.status(e.status||500).json({code:e.code&&/^e[A-Z]/.test(e.code)?e.code:'eNet'})});
+if(require.main===module)app.listen(process.env.PORT||8080,()=>console.log('Jospar listening; mode='+ (cloud?'firebase':'local')));module.exports=app;
