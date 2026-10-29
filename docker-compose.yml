@@ -1,7 +1,7 @@
 services:
   jospar:
     build: .
-    ports: ["8080:8080"]
+    ports: ["8085:8085"]
     environment:
       JOSPAR_MODE: ${JOSPAR_MODE:-local}
     restart: unless-stopped
