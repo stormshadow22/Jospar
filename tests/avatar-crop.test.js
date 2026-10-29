@@ -1,0 +1,5 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const crop=import('data:text/javascript;base64,'+Buffer.from(fs.readFileSync(require('node:path').join(__dirname,'../public/avatar-crop.js'),'utf8')).toString('base64'));
+test('landscape initial crop is a centered square',async()=>{const {cropGeometry}=await crop;assert.deepEqual(cropGeometry(800,400),{x:200,y:0,size:400,centerX:400,centerY:200,zoom:1})});
+test('zoom and pan stay within source image bounds',async()=>{const {cropGeometry}=await crop;const g=cropGeometry(800,400,2,-100,9999);assert.equal(g.size,200);assert.equal(g.x,0);assert.equal(g.y,200);for(const z of [1,1.3,2,4,99])for(const x of [-100,0,30,10000]){const r=cropGeometry(400,900,z,x,x);assert.ok(r.x>=0&&r.y>=0);assert.ok(r.x+r.size<=400&&r.y+r.size<=900)}});
+test('invalid dimensions fail and zoom is clamped',async()=>{const {cropGeometry}=await crop;assert.throws(()=>cropGeometry(0,400));assert.equal(cropGeometry(400,400,10).zoom,4);assert.equal(cropGeometry(400,400,.1).zoom,1)});
