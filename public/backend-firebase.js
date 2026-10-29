@@ -79,6 +79,7 @@ export default {
     return p ? {id: u.uid, username: p.username, method: p.method, contact: p.contact} : null;
   },
   logout() { cache = null; return signOut(auth); },
+  async reload(){cache=await api("/state");return cache.data},
   async load() { if (!cache) cache = await api("/state"); return cache.data; },
   async save(u, d) {if(!auth.currentUser||auth.currentUser.uid!==u.id)throw err("eAuth");const r=await api("/state", {method:"PUT",body:JSON.stringify({data:d,version:cache.version||0})});cache.version=r.version;cache.data=d;return r;}
 };

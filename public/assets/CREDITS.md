@@ -9,3 +9,7 @@ Template license: MIT. Upstream credits its photography to Unsplash (https://uns
 The photograph is bundled locally so the interface does not depend on a third-party image service.
 
 The stationery on the registration screen is made with CSS, not a photograph or an AI-generated image.
+
+`survey-desk.jpg` — real desktop accessories photograph from Start Bootstrap Agency:
+https://github.com/StartBootstrap/startbootstrap-agency/blob/master/src/assets/img/header-bg.jpg
+Upstream template is MIT-licensed: https://github.com/StartBootstrap/startbootstrap-agency . Used only as the survey background.
