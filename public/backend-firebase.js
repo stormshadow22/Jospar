@@ -1,85 +1,26 @@
-// Боевой бэкенд: Firebase Authentication (почта + SMS) + ваш API (/api) с Firestore.
-// Подключается автоматически, когда в index.html заполнен window.FIREBASE_CONFIG.
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,onAuthStateChanged,RecaptchaVerifier,signInWithPhoneNumber} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const auth = getAuth(initializeApp(window.FIREBASE_CONFIG));
-let pend = JSON.parse(sessionStorage.getItem('jospar.pending')||'null'), conf = null, verifier = null, cache = null;
-const err = c => ({code: c});
-const known = new Set(["eExists","eCode","eNoAcc","eWrong","eVerify","eNet","eTaken"]);
-
-async function api(path, opt = {}) {
-  const tok = auth.currentUser ? await auth.currentUser.getIdToken() : "";
-  const r = await fetch("/api" + path, {...opt, headers: {"Content-Type": "application/json", Authorization: "Bearer " + tok}});
-  if (!r.ok) { const j = await r.json().catch(() => ({})); throw err(j.code || "eNet"); }
-  return r.json();
-}
-const rec = () => verifier || (verifier = new RecaptchaVerifier(auth, "recaptcha", {size: "invisible"}));
-function map(e) {
-  if (e && known.has(e.code)) return e;
-  const c = (e && e.code) || "";
-  if (c.includes("email-already") || c.includes("account-exists")) return err("eExists");
-  if (c.includes("wrong-password") || c.includes("invalid-credential")) return err("eWrong");
-  if (c.includes("user-not-found")) return err("eNoAcc");
-  if (c.includes("invalid-verification-code") || c.includes("code-expired")) return err("eCode");
-  return err("eNet");
-}
-const waitAuth = () => new Promise(res => { const off = onAuthStateChanged(auth, u => { off(); res(u); }); });
-
+import {auth,db,doc,getDoc,runTransaction,serverTimestamp,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendEmailVerification,sendPasswordResetEmail,signOut,onAuthStateChanged,RecaptchaVerifier,signInWithPhoneNumber,deleteDoc,writeBatch,getDocs,collection,query,where,deleteUser,getIdTokenResult} from './firebase-client.js';
+let pend;try{pend=JSON.parse(sessionStorage.getItem('jospar.pending')||'null')}catch{pend=null}
+let conf,verifier,cache;
+const fail=code=>Object.assign(new Error(code),{code});
+function map(e){if(e?.code?.startsWith('e'))return e;const c=e?.code||'';if(/already-in-use/.test(c))return fail('eExists');if(/invalid-credential|wrong-password/.test(c))return fail('eWrong');if(/verification-code|code-expired/.test(c))return fail('eCode');if(/permission-denied|operation-not-allowed|configuration-not-found/.test(c))return fail('eConfiguration');if(/billing-not-enabled|quota-exceeded/.test(c))return fail('eBilling');if(/too-many-requests/.test(c))return fail('eRate');return fail('eNet')}
+const ready=()=>auth.authStateReady();
+const requireVerified=()=>{const u=auth.currentUser;if(!u||(!u.emailVerified&&!u.phoneNumber))throw fail('eVerify');return u};
+const rec=()=>verifier||(verifier=new RecaptchaVerifier(auth,'recaptcha',{size:'invisible'}));
+async function ensureProfile(name){const u=requireVerified(),profileRef=doc(db,'publicProfiles',u.uid);if((await getDoc(profileRef)).exists())return;name=(name||('user'+u.uid.slice(0,10))).trim();if(!/^[\p{L}][\p{L}\p{N}_.]{2,19}$/u.test(name))throw fail('eUser');
+await runTransaction(db,async tx=>{const nr=doc(db,'usernames',name.toLowerCase()),pr=await tx.get(profileRef),nrSnap=await tx.get(nr),ur=doc(db,'users',u.uid),us=await tx.get(ur);if(pr.exists())return;if(nrSnap.exists()&&nrSnap.data().uid!==u.uid)throw fail('eTaken');tx.set(nr,{uid:u.uid});tx.set(profileRef,{username:name,displayName:name,bio:'',avatarURL:'',createdAt:serverTimestamp()});if(!us.exists())tx.set(ur,{profile:{username:name,method:u.email?'email':'phone',contact:u.email||u.phoneNumber},data:null,version:0})});sessionStorage.removeItem('jospar.pending');}
 export default {
-  demo: false,
-  async remove(){await api("/account",{method:"DELETE"});return signOut(auth)},
-  reset(email){return sendPasswordResetEmail(auth,email)},
-  async free(u) { const r = await fetch("/api/username-available?u=" + encodeURIComponent(u)); return (await r.json()).free; },
-  async register(p) {
-    pend = p;sessionStorage.setItem('jospar.pending',JSON.stringify({username:p.username,method:p.method,contact:p.contact}));
-    try {
-      if (p.method === "email") {
-        const c = await createUserWithEmailAndPassword(auth, p.contact, p.password);
-        await sendEmailVerification(c.user);
-        return {mode: "link"};
-      }
-      conf = await signInWithPhoneNumber(auth, p.contact, rec());
-      return {mode: "code"};
-    } catch (e) { throw map(e); }
-  },
-  async resend() {
-    try {
-      if (pend.method === "email") await sendEmailVerification(auth.currentUser);
-      else conf = await signInWithPhoneNumber(auth, pend.contact, rec());
-      return {};
-    } catch (e) { throw map(e); }
-  },
-  async confirm(code) {
-    try {
-      if (pend.method === "email") { await auth.currentUser.reload();await auth.currentUser.getIdToken(true); if (!auth.currentUser.emailVerified) throw err("eVerify"); }
-      else await conf.confirm(code);
-      await api("/profile", {method: "POST", body: JSON.stringify({username: pend.username})});
-      cache = null;
-      return await this.current();
-    } catch (e) { throw map(e); }
-  },
-  async loginStart(c) { try { conf = await signInWithPhoneNumber(auth, c, rec()); return {}; } catch (e) { throw map(e); } },
-  async login(o) {
-    try {
-      if (o.method === "email") {
-        const c = await signInWithEmailAndPassword(auth, o.contact, o.password);
-        if (!c.user.emailVerified){await sendEmailVerification(c.user);throw err("eVerify");}
-      } else await conf.confirm(o.code);
-      cache = null;
-      return await this.current();
-    } catch (e) { throw map(e); }
-  },
-  async current() {
-    const u = auth.currentUser || await waitAuth();
-    if (!u) return null;
-    try { cache = await api("/state"); } catch (e) { return null; }
-    if(!cache.profile){let username=pend&&pend.username;if(!username)username=prompt('Завершение регистрации: введите имя пользователя (3–20 символов)');if(!username)throw err('eUser');await api('/profile',{method:'POST',body:JSON.stringify({username})});cache=await api('/state');sessionStorage.removeItem('jospar.pending')}
-    const p = cache.profile;
-    return p ? {id: u.uid, username: p.username, method: p.method, contact: p.contact} : null;
-  },
-  logout() { cache = null; return signOut(auth); },
-  async reload(){cache=await api("/state");return cache.data},
-  async load() { if (!cache) cache = await api("/state"); return cache.data; },
-  async save(u, d) {if(!auth.currentUser||auth.currentUser.uid!==u.id)throw err("eAuth");const r=await api("/state", {method:"PUT",body:JSON.stringify({data:d,version:cache.version||0})});cache.version=r.version;cache.data=d;return r;}
+ demo:false,
+ async free(name){return /^[\p{L}][\p{L}\p{N}_.]{2,19}$/u.test(name)},
+ async register(p){pend=p;sessionStorage.setItem('jospar.pending',JSON.stringify({username:p.username,method:p.method,contact:p.contact}));try{if(p.method==='email'){let u=auth.currentUser;if(!u||u.email?.toLowerCase()!==p.contact.toLowerCase())u=(await createUserWithEmailAndPassword(auth,p.contact,p.password)).user;if(!u.emailVerified)await sendEmailVerification(u);return {mode:'link'}}conf=await signInWithPhoneNumber(auth,p.contact,rec());return {mode:'code'}}catch(e){throw map(e)}},
+ async resend(){try{if(pend?.method==='email')await sendEmailVerification(auth.currentUser);else conf=await signInWithPhoneNumber(auth,pend.contact,rec());return {}}catch(e){throw map(e)}},
+ async confirm(code){try{if(pend?.method==='email'){await auth.currentUser.reload();await auth.currentUser.getIdToken(true);requireVerified()}else await conf.confirm(code);await ensureProfile(pend?.username);return this.current()}catch(e){throw map(e)}},
+ async loginStart(contact){try{conf=await signInWithPhoneNumber(auth,contact,rec());return {}}catch(e){throw map(e)}},
+ async login(p){try{if(p.method==='email'){const {user}=await signInWithEmailAndPassword(auth,p.contact,p.password);if(!user.emailVerified){await sendEmailVerification(user);throw fail('eVerify')}}else await conf.confirm(p.code);await ensureProfile(pend?.username);return this.current()}catch(e){throw map(e)}},
+ async current(){await ready();const u=auth.currentUser;if(!u||(!u.emailVerified&&!u.phoneNumber))return null;await ensureProfile(pend?.username);const p=(await getDoc(doc(db,'publicProfiles',u.uid))).data();cache=(await getDoc(doc(db,'users',u.uid))).data();return {id:u.uid,username:p.displayName||p.username,handle:p.username,avatarURL:p.avatarURL||'',method:u.email?'email':'phone',contact:u.email||u.phoneNumber}},
+ logout(){cache=null;return signOut(auth)},
+ async reset(email){try{await sendPasswordResetEmail(auth,email)}catch(e){throw map(e)}},
+ async reload(){cache=(await getDoc(doc(db,'users',requireVerified().uid))).data();return cache?.data||null},
+ async load(){if(!cache)return this.reload();return cache.data},
+ async save(user,data){const u=requireVerified();if(u.uid!==user.id)throw fail('eAuth');if(!window.validState(data))throw fail('eInvalidData');const expected=cache?.version||0;const version=await runTransaction(db,async tx=>{const r=doc(db,'users',u.uid),snap=await tx.get(r),v=snap.data()?.version||0;if(v!==expected)throw fail('eConflict');tx.update(r,{data,version:v+1});return v+1});cache={...cache,data,version}},
+ async remove(){const user=requireVerified(),token=await getIdTokenResult(user,true);if(Date.now()/1000-token.claims.auth_time>300)throw fail('eRecentLogin');if(!(await getDocs(query(collection(db,'teams'),where('memberIds','array-contains',user.uid)))).empty)throw fail('eLeaveTeams');const notes=await getDocs(collection(db,'users',user.uid,'notifications'));for(let i=0;i<notes.docs.length;i+=400){const b=writeBatch(db);notes.docs.slice(i,i+400).forEach(d=>b.delete(d.ref));await b.commit()}const devices=await getDocs(query(collection(db,'pushDevices'),where('uid','==',user.uid)));for(const d of devices.docs)await deleteDoc(d.ref);const p=(await getDoc(doc(db,'publicProfiles',user.uid))).data();const batch=writeBatch(db);batch.delete(doc(db,'users',user.uid));if(p){batch.delete(doc(db,'publicProfiles',user.uid));batch.delete(doc(db,'usernames',p.username.toLowerCase()))}await batch.commit();await deleteUser(user);cache=null;}
 };

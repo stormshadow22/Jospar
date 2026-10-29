@@ -3,3 +3,8 @@
 serviceAccount*.json
 .env
 *.zip
+*firebase-adminsdk*.json
+firebase-admin.json
+secrets
+.env.*
+!.env.example

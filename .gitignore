@@ -2,3 +2,11 @@ node_modules/
 serviceAccount*.json
 .env
 *.log
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+*firebase-adminsdk*.json
+firebase-admin.json
+secrets/
+.env.*
+!.env.example
