@@ -22,7 +22,7 @@ if not exist "server\node_modules\express\package.json" (
   )
 )
 echo.
-echo Open http://localhost:8085 after the server starts.
+echo Open http://localhost:8089 after the server starts.
 echo Keep this window open. Press Ctrl+C to stop.
 echo.
 call npm start

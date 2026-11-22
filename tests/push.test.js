@@ -1,0 +1,3 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),{pushPayload,invalidToken}=require('../server/push-worker');
+test('push payload is data-only and contains an internal team target',()=>{const p=pushPayload({id:'n1',teamId:'team1',title:'Course',body:'New team message'});assert.equal(p.notification,undefined);assert.equal(p.data.teamId,'team1');assert.equal(p.data.notificationId,'n1');assert.equal(p.webpush.headers.TTL,'86400')});
+test('expired registration tokens can be removed without treating transient failures as permanent',()=>{assert.equal(invalidToken('messaging/registration-token-not-registered'),true);assert.equal(invalidToken('messaging/server-unavailable'),false)});

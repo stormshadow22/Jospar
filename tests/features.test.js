@@ -5,3 +5,15 @@ test('query combines date, priority and tag',()=>{const {f}=fixture();assert.equ
 test('query searches projects and completion independently',()=>{const {f}=fixture();assert.equal(f.searchTasks('#университет active').length,1);assert.equal(f.searchTasks('done @учеба')[0].id,'t3');assert.equal(f.searchTasks('nodate').length,0)});
 test('new activity creates unread notification',()=>{const {f,data}=fixture();f.record('created',data.tasks[0]);assert.equal(f.unreadCount(),1);data.notificationRead.n1=true;assert.equal(f.unreadCount(),0)});
 test('notification history is bounded',()=>{const {f,data}=fixture();for(let i=0;i<210;i++)f.record('updated',data.tasks[0]);assert.equal(data.activity.length,200)});
+
+test('CSV neutralizes formulas after whitespace and quotes multiline cells',async()=>{
+ let exported;
+ const context={window:{},Date,Set,Blob,URL:{createObjectURL:b=>{exported=b;return 'blob:test'},revokeObjectURL(){}},document:{createElement:()=>({click(){}})},setTimeout(){}};
+ vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../public/features.js'),'utf8'),context);
+ const titles=['=1+1','  =1+1','\n=1+1','\t@SUM(1,1)','safe "title"'];
+ const data={tasks:titles.map(title=>({title,proj:'',due:'',pri:'mid',done:false})),projects:[]};
+ const f=context.window.JosparFeatures.create({state:()=>({data})});f.handle('fxCsv',{});
+ const csv=await exported.text();
+ for(const title of titles.slice(0,4))assert.ok(csv.includes('"\''+title.replace(/"/g,'""')+'"'),title);
+ assert.ok(csv.includes('"safe ""title"""'));
+});

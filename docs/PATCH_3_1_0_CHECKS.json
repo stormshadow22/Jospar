@@ -1,0 +1,9 @@
+{
+  "version": "3.1.0",
+  "nodeTests": 24,
+  "browserSuites": 8,
+  "chatDeliveryTest": "Two users with mocked Firebase SDK; live Firestore authorization rules unchanged",
+  "reminderTest": "Scheduled using the task editor; virtual browser time advanced through the due minute and 10-second dismissal",
+  "scope": "In-site cards only; no OS notification permission requested",
+  "hostingTarget": "v3"
+}

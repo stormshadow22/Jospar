@@ -1,0 +1,11 @@
+{
+  "version": {
+    "version": "3.0.1",
+    "hostingSite": "jospar-fcaa0-v3",
+    "channel": "v3-coursework"
+  },
+  "liveAssetsMatchLocal": true,
+  "russianLayoutSearchWorks": true,
+  "formDraftPreserved": true,
+  "browserErrors": []
+}

@@ -1,0 +1,14 @@
+{
+  "url": "https://jospar-fcaa0-v3.web.app",
+  "demoUrl": "https://jospar-fcaa0-v3.web.app/demo.html",
+  "version": {
+    "version": "3.0.0",
+    "hostingSite": "jospar-fcaa0-v3",
+    "channel": "v3-coursework"
+  },
+  "oldSitesUnchanged": true,
+  "remoteFilesMatchLocal": true,
+  "googlePopupReachedGoogle": true,
+  "publishedDemoWorksOffline": true,
+  "browserErrors": []
+}

@@ -1,0 +1,96 @@
+/* Three photographic skins. The shell grid and feature order are unchanged. */
+:root[data-look]{
+ --heading-font:'Manrope',sans-serif;--body-font:'Golos Text',sans-serif;
+ --r-sm:6px;--r:10px;--r-lg:14px;--r-xl:18px;
+ --sh-xs:0 1px 2px #30251c09;--sh-sm:0 2px 5px #30251c0c;
+ --sh:0 10px 30px #30251c16;--sh-lg:0 22px 60px #181d2433;
+ --hero:var(--btn);--hero-ink:#fff;--hero-muted:#f8f3ed;--hero-copy:#38271df5;--hero-stat:#38271df5;
+ --hero-button:#fff;--hero-button-ink:var(--btn);--page-tint:#f5f1e533;
+}
+:root[data-look=campus]{
+ --theme-image:url('/assets/themes/campus.jpg');--bg:#f2ede5;--side:#fcfaf6;--panel:#fffdfa;--p2:#f1ede7;--p3:#e7e0d6;--line:#ded7cd;
+ --ink:#30291f;--ink2:#514638;--mute:#716658;--faint:#807568;
+ --ac:#91472e;--ac2:#a85e3d;--btn:#6c3e29;--btn-h:#51301e;--soft:#f4e6dc;--ring:#91472e33;
+ --ok:#27724d;--ok-soft:#e6f0e8;--info:#486f81;
+}
+:root[data-look=notebook]{
+ --theme-image:url('/assets/themes/notebook.jpg');--bg:#f4f0e9;--side:#fcfbf8;--panel:#fffefb;--p2:#f1ece8;--p3:#e8e0dc;--line:#dfd6d2;
+ --ink:#30292b;--ink2:#51464a;--mute:#75676d;--faint:#82737a;
+ --ac:#743444;--ac2:#8c4c5b;--btn:#743444;--btn-h:#5c2634;--soft:#f4e7eb;--ring:#74344433;
+ --ok:#29734e;--ok-soft:#e7f0e9;--info:#416e72;
+ --heading-font:'Literata',Georgia,serif;--hero-ink:#64303e;--hero-muted:#4e4449;--hero-copy:#fffdf9;--hero-stat:#fffdf9;
+ --hero-button:#743444;--hero-button-ink:#fff;--page-tint:#faf9f340;
+}
+:root[data-look=horizon]{
+ --theme-image:url('/assets/themes/horizon.jpg');--bg:#edf3ef;--side:#f8fbf8;--panel:#fdfffd;--p2:#eaf0eb;--p3:#dce7de;--line:#d7e1d8;
+ --ink:#1e342b;--ink2:#3b5146;--mute:#5f7467;--faint:#728578;
+ --ac:#285e49;--ac2:#3c775c;--btn:#244e3d;--btn-h:#173d2d;--soft:#e2eee5;--ring:#285e4933;
+ --ok:#26734e;--ok-soft:#e4f2e8;--info:#3d7180;
+ --hero-copy:#173f30f5;--hero-stat:#173f30f5;--page-tint:#edf3ef19;
+}
+:root[data-look][data-t=dark]{
+ --bg:#222a2c;--side:#252d2f;--panel:#2b3436;--p2:#333e40;--p3:#414d4f;--line:#4a5658;
+ --ink:#f1eee7;--ink2:#dddcd4;--mute:#b7bdb5;--faint:#a4ada5;
+ --ok:#80c49a;--ok-soft:#254334;--bad:#f29494;--bad-soft:#513435;--warn:#edc080;--warn-soft:#4b412e;--info:#9bbfc7;
+ --page-tint:#172023b8;--hero-ink:#fff;--hero-muted:#f1eee7;--hero-button:#fff;--hero-button-ink:#38271d;
+ --sh-xs:none;--sh-sm:0 2px 5px #0002;--sh:0 10px 30px #0004;--sh-lg:0 24px 60px #0006;
+}
+:root[data-look=campus][data-t=dark]{--ac:#ebba91;--ac2:#efcbac;--btn:#8b4d31;--btn-h:#a46244;--soft:#483b32;--ring:#ebba9140;--hero-copy:#39271ef5;--hero-stat:#39271ef5}
+:root[data-look=notebook][data-t=dark]{--ac:#edb2c0;--ac2:#f4c9d3;--btn:#94475e;--btn-h:#ac5c74;--soft:#49333d;--ring:#edb2c040;--hero-copy:#3b2934;--hero-stat:#3b2934;--hero-button-ink:#743444}
+:root[data-look=horizon][data-t=dark]{--ac:#a7d2b7;--ac2:#c4e3cd;--btn:#35684e;--btn-h:#457c60;--soft:#2c4739;--ring:#a7d2b740;--hero-copy:#16382bf5;--hero-stat:#16382bf5;--hero-button-ink:#244e3d}
+body{font-family:var(--body-font,'Golos Text'),sans-serif}
+h1,h2,h3,h4,.ph,.logo{font-family:var(--heading-font,'Golos Text'),sans-serif}
+body.has-user{background-color:var(--bg);background-image:linear-gradient(var(--page-tint),var(--page-tint)),var(--theme-image);background-position:center top;background-size:cover;background-attachment:fixed}
+.app{background:transparent}
+.top{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+.top .lang,.top .ib,.top .avb{background-color:var(--panel)}
+.top .avb{background:var(--btn);color:#fff}
+.top .lang{border-color:var(--line)}
+.center:not([data-view=today]) #body{background:var(--panel);border-radius:8px;box-shadow:0 0 0 14px var(--panel)}
+.back-row{padding:0;margin:0 0 22px;display:flex;align-items:center;justify-content:flex-start}
+.page-back{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin:0;padding:8px 12px;min-height:36px;line-height:20px;font-size:13px;background:var(--panel);border-color:var(--line);box-shadow:none}
+.page-back svg{width:17px;height:17px}
+.page-back:hover{background:var(--p2)}
+.welcome{background-color:var(--btn);background-image:var(--theme-image);background-size:cover;background-position:center 46%;box-shadow:none;padding:24px;gap:16px;border:1px solid var(--line)}
+.welcome:before,.welcome:after{display:none}
+.welcome-copy{background:var(--hero-copy);border-radius:12px;padding:18px;color:var(--hero-ink)}
+.welcome h1{color:var(--hero-ink);font-size:28px;font-weight:700}
+.welcome .eyebrow,.welcome p{color:var(--hero-muted)}
+.welcome .btn{background:var(--hero-button);color:var(--hero-button-ink);box-shadow:none}
+.welcome .btn:hover{background:color-mix(in srgb,var(--hero-button) 88%,var(--hero-button-ink))}
+.welcome .btn.ghost{color:var(--hero-ink);border-color:color-mix(in srgb,var(--hero-ink) 55%,transparent);background:transparent;backdrop-filter:none}
+.welcome .btn.ghost:hover{background:color-mix(in srgb,var(--hero-ink) 12%,transparent)}
+.ws{background:var(--hero-stat);color:var(--hero-ink);border:0;border-radius:10px;padding:12px;backdrop-filter:none}
+.ws-i{background:transparent;border-radius:0}
+.ws>span:last-child{color:var(--hero-muted)}
+.logo svg,.feature-add{filter:none;box-shadow:none}
+#lg stop,#lgLogo stop{stop-color:var(--btn)}
+.fc[aria-pressed=true]{background:var(--btn);border-color:var(--btn);color:#fff}
+.fc[aria-pressed=true] em{background:#ffffff26;color:#fff}
+.gh,.qa,.fc{box-shadow:none}
+.feature-add,.btn,.qs{box-shadow:none}
+.right{background:transparent}
+.rc,.right .card{background:var(--panel)}
+.demo-banner{background:var(--panel);border-color:var(--line)}
+.site-notice{border-color:var(--line);border-left:1px solid var(--line);border-top:3px solid var(--ac)}
+.auth-art{background:var(--btn);background-image:linear-gradient(#12221b99,#12221b99),var(--theme-image);background-size:cover;background-position:center}
+.auth-art:before,.auth-art:after{display:none}
+.ap-bar i{background:var(--btn)}
+/* Theme picker uses real buttons, selected states, and local image previews. */
+.appearance-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.appearance-choice{position:relative;display:flex;flex-direction:column;gap:0;min-width:0;padding:0;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;color:var(--ink);box-shadow:none}
+.appearance-choice:hover{border-color:var(--ac)}
+.appearance-choice[aria-pressed=true]{border:2px solid var(--ac)}
+.appearance-choice img{display:block;width:100%;height:80px;object-fit:cover}
+.appearance-choice-copy{padding:10px;display:grid;gap:5px}
+.appearance-choice strong{font:600 13px/1.35 'Golos Text',sans-serif}
+.appearance-choice small{font-size:11px;line-height:1.4;color:var(--mute)}
+.appearance-selected{position:absolute;top:6px;right:6px;display:none;align-items:center;justify-content:center;background:var(--btn);color:#fff;width:24px;height:24px;border-radius:50%;border:2px solid var(--panel)}
+.appearance-selected svg{width:14px;height:14px}
+.appearance-choice[aria-pressed=true] .appearance-selected{display:flex}
+.appearance-status{margin:10px 0 0;font-size:12px;color:var(--mute);min-height:18px}
+@media(max-width:860px){body.has-user{background-attachment:scroll}.top{background:var(--side);padding:10px;border-radius:10px}.welcome{padding:16px}.welcome-copy{padding:14px}.welcome h1{font-size:25px}}
+@media(max-width:700px){.back-row{padding:0;margin-bottom:18px}.welcome{padding:14px;gap:14px}.welcome h1{font-size:23px}.welcome-stats{gap:8px}.ws{padding:10px}.center:not([data-view=today]) #body{box-shadow:0 0 0 8px var(--panel)}.appearance-options{grid-template-columns:1fr}.appearance-choice{flex-direction:row;align-items:center;min-height:76px}.appearance-choice img{width:90px;height:86px;flex:none}.appearance-choice-copy{padding:12px}.appearance-selected{top:5px;right:5px}.appearance-choice strong{font-size:14px}}
+@media print{body.has-user{background:#fff}.back-row{display:none}.center:not([data-view=today]) #body{box-shadow:none}.welcome{background:none;border:0}.welcome-copy{padding:0;background:none}.welcome h1,.welcome p,.welcome .eyebrow{color:#000}}
+
+.mnav-add,.mc button.t{box-shadow:none}

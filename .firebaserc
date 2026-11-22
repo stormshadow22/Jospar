@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "jospar-fcaa0"
+  },
+  "targets": {
+    "jospar-fcaa0": {
+      "hosting": {
+        "v3": [
+          "jospar-fcaa0-v3"
+        ]
+      }
+    }
+  }
+}

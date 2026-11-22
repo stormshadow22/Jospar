@@ -1,0 +1,78 @@
+{
+  "version": "3.2.1",
+  "nodeTests": {
+    "passed": 24,
+    "failed": 0
+  },
+  "firestoreRuleGroups": {
+    "passed": 5,
+    "failed": 0,
+    "project": "demo-jospar",
+    "note": "Previous validation; rules and cloud write paths unchanged in 3.1.0"
+  },
+  "browserSuites": {
+    "passed": 9,
+    "failed": 0,
+    "names": [
+      "browser",
+      "features",
+      "design",
+      "reset",
+      "cloud-ui",
+      "coursework",
+      "reliability",
+      "navigation-notices",
+      "appearance"
+    ],
+    "baselineVersion": "3.2.0",
+    "revalidatedIn3_2_1": [
+      "entrypoints",
+      "cloud-ui",
+      "appearance"
+    ]
+  },
+  "extraScenarios": [
+    "visible saving error and retry on mobile",
+    "drawer closes before modal",
+    "duplicate/reload",
+    "undo date and completion",
+    "demo offline reload and save",
+    "demo reset",
+    "Google mock success and popup error",
+    "password reset retry after network error",
+    "Russian physical-key Ctrl+K and Cmd+K",
+    "search query retained on repeated shortcut",
+    "modal form draft protected from search",
+    "Russian physical Q and G I shortcuts",
+    "safe long and duplicate quick-entry tags",
+    "invalid quick-entry time kept as text",
+    "new chat draft preserved after delayed send",
+    "back history and search state restore",
+    "contextual return from chat",
+    "in-site scheduled task reminders with no browser permission",
+    "10-second animated dismissal and queued delivery",
+    "no reminder duplication after reload",
+    "notification action protects unsaved form",
+    "new team messages while another section is open",
+    "initial chat history is silent",
+    "mobile notification containment and reduced motion",
+    "three photo themes with local persistence and cross-tab sync",
+    "24 combinations of appearance, light/dark mode and viewport width",
+    "offline demo theme switching with local images and fonts",
+    "home back hidden and other back buttons aligned",
+    "appearance storage failure explained without changing plans",
+    "demo cloud and logout bypass stale root HTML via /app.html"
+  ],
+  "productionNpmAudit": {
+    "client": 0,
+    "server": 0
+  },
+  "realEmailSmsSent": false,
+  "realGoogleAccountSignInAutomated": false,
+  "limitations": [
+    "real SMS disabled",
+    "background push delivery not configured",
+    "Firebase accounts/database shared with v1/v2",
+    "mailbox delivery depends on provider"
+  ]
+}

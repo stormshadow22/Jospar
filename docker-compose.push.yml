@@ -1,0 +1,11 @@
+services:
+  jospar:
+    environment:
+      JOSPAR_PUSH_WORKER: "1"
+      FIREBASE_PROJECT_ID: jospar-fcaa0
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/firebase-admin.json
+    volumes:
+      - type: bind
+        source: ${FIREBASE_ADMIN_FILE:?Set FIREBASE_ADMIN_FILE in your local .env}
+        target: /run/secrets/firebase-admin.json
+        read_only: true

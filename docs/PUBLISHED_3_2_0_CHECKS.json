@@ -1,0 +1,51 @@
+{
+  "version": "3.2.0",
+  "url": "https://jospar-fcaa0-v3.web.app",
+  "verifiedAt": "2026-11-19T11:45:02.714Z",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "98a6e58935fb9ee51d6f1cf3352f311cf3daa38ca280ea196b804735c6c01e7f"
+    },
+    {
+      "file": "demo.html",
+      "sha256": "4f84e177c9b091bb45cae6cc7d4b5092614bd9ce1b6ed185896569395086091f"
+    },
+    {
+      "file": "app.js",
+      "sha256": "581d69017f514fc8f8619da42806b2e64542b1ebd3d823b00b3993f022ae41ec"
+    },
+    {
+      "file": "appearance.js",
+      "sha256": "6cc1b7269605657a42bf6a858e9efeb9253dbc94c2dd666ca1d4b613c0a098b4"
+    },
+    {
+      "file": "appearance.css",
+      "sha256": "89c44848d442e424b680db5999f689fd647918bf79c7daeb2675f579be116155"
+    },
+    {
+      "file": "fonts.css",
+      "sha256": "a3740874518ed4b86963bdfd2a6dc7e581df2b3054a7ed028e1c6f517459fed7"
+    },
+    {
+      "file": "demo-sw.js",
+      "sha256": "e3bb248a9970d9b15c862c8b8518bf35dc19f51cf3f8021e7abe35940e55e1bb"
+    },
+    {
+      "file": "version.json",
+      "sha256": "93bf77f6156d2240f89c7210adf7b312af68061eaf5e78aafabf072eedac8c60"
+    },
+    {
+      "file": "assets/themes/campus.jpg",
+      "sha256": "c1a124955bb84288563e742e586fe0d97332db15f0567b601722a9e0fd337d91"
+    },
+    {
+      "file": "assets/themes/notebook.jpg",
+      "sha256": "7fe3e82d1491e5e2029601287bc76e61511bf5fd5147c8793da46365729111d7"
+    },
+    {
+      "file": "assets/themes/horizon.jpg",
+      "sha256": "b1e13c59222a0c26d92d6d507f36806999aeff0f91f679c7a7c662bc34329420"
+    }
+  ]
+}

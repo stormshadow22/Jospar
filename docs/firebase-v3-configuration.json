@@ -1,0 +1,7 @@
+{
+  "googleEnabled": true,
+  "googleClientConfigured": true,
+  "emailEnabled": true,
+  "previousDomainsPreserved": true,
+  "deployedRulesMatchLocal": true
+}

@@ -1,0 +1,15 @@
+{
+  "version": "3.2.1",
+  "fullUrl": "https://jospar-fcaa0-v3.web.app/app.html",
+  "originalProblem": "Demo cloud link and logout used /, whose Hosting Cache-Control was max-age=3600",
+  "fix": "Dedicated /app.html entry point, no-store HTML and root headers, cloud links and team invite links bypass root; same origin and data",
+  "nodeTests": 24,
+  "browserSuites": [
+    "entrypoints",
+    "cloud-ui",
+    "appearance"
+  ],
+  "staleRootRegression": "Passed: simulated old root HTML is never requested by demo cloud or logout transitions",
+  "chosenAppearanceRetained": true,
+  "entrypointBuild": "scripts/prepare-entrypoints.cjs copies index.html to app.html on build"
+}

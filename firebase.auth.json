@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Jospar",
+        "supportEmail": "m.shifu2009@gmail.com"
+      }
+    }
+  }
+}

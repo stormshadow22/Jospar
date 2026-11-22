@@ -1,0 +1,12 @@
+{
+  "url": "https://jospar-fcaa0-v2.web.app",
+  "version": {
+    "version": "2.1.0",
+    "hostingSite": "jospar-fcaa0-v2",
+    "channel": "v2"
+  },
+  "remoteFilesMatchLocal": true,
+  "oldSiteUnchanged": true,
+  "registrationScreenVisible": true,
+  "browserErrors": []
+}

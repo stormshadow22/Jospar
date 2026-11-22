@@ -1,0 +1,39 @@
+{
+  "version": "3.1.0",
+  "url": "https://jospar-fcaa0-v3.web.app",
+  "verifiedAt": "2026-11-19T10:06:01.540Z",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "800c8afb397053a7839d193baef0fe0d4dd44d66cfb44f4f4a950d08ea48c130"
+    },
+    {
+      "file": "demo.html",
+      "sha256": "fa16db98578bc52ad44d72644f54d764444c3eabca773f999048884eaf6b3ae2"
+    },
+    {
+      "file": "app.js",
+      "sha256": "5e91e173c774d708e9455bbf254b2934ef7ea19486e2e69f6a713590d27a6326"
+    },
+    {
+      "file": "notices.js",
+      "sha256": "123d4371ff3c018f56783f693ec1f733be5ecb412d63cbc74ae415c753408bb2"
+    },
+    {
+      "file": "cloud.js",
+      "sha256": "f977eca0b6b490f9d6d6c47fe9480ab23cb104906d0b71b39cd5a703bcd1d3fe"
+    },
+    {
+      "file": "styles.css",
+      "sha256": "fb82d7e9c545a5b5c0c8051603265a2071bb5ecd8c6078fcae2e92972c85e730"
+    },
+    {
+      "file": "demo-sw.js",
+      "sha256": "eda0902b4776bdb7dcaf0c5a885dc4dfc6b2f90a30724b892257aa51c1e9db5b"
+    },
+    {
+      "file": "version.json",
+      "sha256": "379290743640f1976efb3d75161a1735fec29689efdfcfc7751a16089dc8a671"
+    }
+  ]
+}

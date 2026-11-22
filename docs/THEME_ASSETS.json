@@ -1,0 +1,14 @@
+{
+  "generator": "built-in imagegen",
+  "assets": [
+    "public/assets/themes/campus.jpg",
+    "public/assets/themes/notebook.jpg",
+    "public/assets/themes/horizon.jpg"
+  ],
+  "prompts": {
+    "campus": "University library corridor, limestone arches, oak bookshelves, afternoon sunlight, photographic background without UI or text.",
+    "notebook": "Overhead ivory student desk, burgundy notebook, squared-paper notes and pencil at top edges, clear lower surface.",
+    "horizon": "Kazakhstan-inspired alpine lake, pine forest, Tian Shan inspired snow peaks, clear natural morning light."
+  },
+  "fonts": "Self-hosted Golos Text, Manrope and Literata; OFL licenses included"
+}

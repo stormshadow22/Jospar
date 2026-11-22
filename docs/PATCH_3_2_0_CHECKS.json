@@ -1,0 +1,41 @@
+{
+  "version": "3.2.0",
+  "nodeTests": 24,
+  "browserSuites": 9,
+  "themeCombinations": 24,
+  "themes": [
+    "campus",
+    "notebook",
+    "horizon"
+  ],
+  "viewports": [
+    320,
+    390,
+    768,
+    1440
+  ],
+  "lightDarkModes": true,
+  "offlineSwitching": true,
+  "preferenceSyncBetweenTabs": true,
+  "plannerDataUnchangedByTheme": true,
+  "backButton": "Hidden on today, aligned with content elsewhere; contextual chat back retained",
+  "contrastLightThemes": {
+    "campus": {
+      "text": 14.14,
+      "secondary": 5.52,
+      "button": 8.9
+    },
+    "notebook": {
+      "text": 14.09,
+      "secondary": 5.32,
+      "button": 9.06
+    },
+    "horizon": {
+      "text": 13.22,
+      "secondary": 5.0,
+      "button": 9.41
+    }
+  },
+  "generatedAssets": "See THEME_ASSETS.json",
+  "firebaseRules": "Unchanged; no new database write paths"
+}
