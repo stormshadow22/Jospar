@@ -5,8 +5,9 @@ const currentUser={uid,displayName:window.TEST_DISPLAY_NAME||null,email:uid+'@ex
 export const auth={currentUser:window.TEST_SIGNED_OUT?null:currentUser,authStateReady:async()=>{}};
 const api=(op,args)=>window.testFirestore({op,...args});
 const revive=x=>{if(x&&typeof x==='object'){if(x.__stamp!==undefined)return {toMillis:()=>x.__stamp,toDate:()=>new Date(x.__stamp),__stamp:x.__stamp};if(Array.isArray(x))return x.map(revive);return Object.fromEntries(Object.entries(x).map(([k,v])=>[k,revive(v)]))}return x};
-export const doc=(base,...p)=>({path:[base.path,...p].filter(Boolean).join('/')});
-export const collection=doc;
+let autoId=0;
+export const doc=(base,...p)=>{if(!p.length&&base.kind==='collection')p=['auto_'+uid+'_'+(++autoId)];const path=[base.path,...p].filter(Boolean).join('/');return {path,id:path.split('/').at(-1)}};
+export const collection=(base,...p)=>({...doc(base,...p),kind:'collection'});
 export const where=(field,op,value)=>({field,op,value});
 export const orderBy=(field,direction)=>({order:field,direction});
 export const limit=n=>({limit:n});

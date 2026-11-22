@@ -1,30 +1,38 @@
 {
   "name": "jospar",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "private": true,
   "scripts": {
     "start": "node server/index.js",
     "setup": "npm ci && npm run build && npm ci --prefix server",
     "test": "node --test tests/*.test.js",
-    "build": "node scripts/prepare-entrypoints.cjs && esbuild src/firebase-client.js --bundle --format=esm --minify --outfile=public/firebase-client.js && esbuild src/firebase-messaging-sw.js --bundle --format=iife --minify --outfile=public/firebase-messaging-sw.js",
+    "build": "node scripts/verify-install.cjs && node scripts/prepare-entrypoints.cjs && esbuild src/firebase-client.js --bundle --format=esm --minify --metafile=.build/firebase-client-meta.json --outfile=public/firebase-client.js && esbuild src/firebase-messaging-sw.js --bundle --format=iife --minify --metafile=.build/firebase-messaging-meta.json --outfile=public/firebase-messaging-sw.js && node scripts/third-party-licenses.cjs",
     "test:firebase": "node tests/run-firebase.cjs",
     "test:rules": "node --test tests/firebase-rules.cjs",
     "test:browser": "node tests/run-browser.cjs",
     "deploy:v3": "npm run build && node node_modules/firebase-tools/lib/bin/firebase.js deploy --project jospar-fcaa0 --only hosting:v3"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24.12.0"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "6.0.0",
+    "@opentelemetry/api": "1.9.1",
     "esbuild": "0.28.2",
-    "firebase-tools": "15.34.2",
+    "firebase-tools": "15.37.0",
     "playwright": "1.58.2"
   },
   "dependencies": {
-    "firebase": "13.2.1"
+    "firebase": "13.4.0"
   },
   "overrides": {
-    "@grpc/grpc-js": "1.14.6"
+    "@grpc/grpc-js": "1.14.6",
+    "glob": "14.0.6",
+    "gaxios": {
+      "uuid": "11.1.1"
+    },
+    "firebase-tools": {
+      "@opentelemetry/core": "2.8.0"
+    }
   }
 }

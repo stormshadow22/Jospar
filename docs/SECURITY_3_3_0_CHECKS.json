@@ -1,0 +1,27 @@
+{
+  "version": "3.3.0",
+  "date": "2026-11-22",
+  "nodeTests": 26,
+  "browserSuites": 11,
+  "freshInstall": true,
+  "firebaseSdk": "13.4.0",
+  "firebaseCli": "15.37.0",
+  "dependencyTreeConflicts": 0,
+  "npmAudit": {
+    "clientProduction": 0,
+    "clientIncludingDev": 0,
+    "serverProduction": 0
+  },
+  "licensesBundledPackages": 14,
+  "signOutPrivacy": "Current cloud account copies removed after successful signOut; theme, demo and other account data preserved; cleanup errors reported",
+  "rateLimitsSeconds": {
+    "chat": 2,
+    "invite": 10,
+    "team": 60
+  },
+  "appCheck": "ENFORCED for firestore.googleapis.com; actual v3 token verified",
+  "billingEnabled": false,
+  "firestoreRuleGroups": 6,
+  "cleanInstallVerified": "npm ci from regenerated lockfile succeeded; build and all tests ran afterward",
+  "privacyPolicy": "https://jospar-fcaa0-v3.web.app/privacy.html"
+}

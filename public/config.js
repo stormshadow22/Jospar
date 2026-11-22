@@ -17,3 +17,6 @@ globalThis.JOSPAR_AUTH_OPTIONS = {google:true,phone:false};
 if(globalThis.location.pathname==='/demo.html'){globalThis.JOSPAR_CONFIG=null;globalThis.JOSPAR_DEMO=true;}
 
 globalThis.JOSPAR_PUSH_AVAILABLE = false;
+
+// App Check public site key; production domains only. No paid billing is enabled.
+globalThis.JOSPAR_APP_CHECK={"enabled": true, "siteKey": "6LcViSwuAAAAAA4nJ8PDvofp4KgLUW3OBSY5g9Dm"};

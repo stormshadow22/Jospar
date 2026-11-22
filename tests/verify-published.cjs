@@ -2,7 +2,7 @@ const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:a
 (async()=>{
  const version=JSON.parse(fs.readFileSync('public/version.json','utf8')).version;
  const base=process.env.JOSPAR_TEST_URL||'https://jospar-fcaa0-v3.web.app';
- const files=['index.html','app.html','demo.html','app.js','appearance.js','appearance.css','fonts.css','demo-sw.js','version.json','assets/themes/campus.jpg','assets/themes/notebook.jpg','assets/themes/horizon.jpg'];
+ const files=['index.html','app.html','demo.html','app.js','appearance.js','appearance.css','fonts.css','demo-sw.js','version.json','firebase-client.js','firebase-messaging-sw.js','backend-firebase.js','cloud.js','account-cache.mjs','privacy.html','licenses/THIRD_PARTY_NOTICES.txt','licenses/firebase-js-sdk-LICENSE.txt','assets/themes/campus.jpg','assets/themes/notebook.jpg','assets/themes/horizon.jpg'];
  async function check(file){
   let last;
   for(let attempt=0;attempt<3;attempt++)try{

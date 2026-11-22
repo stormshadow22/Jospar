@@ -1,0 +1,87 @@
+{
+  "version": "3.3.0",
+  "url": "https://jospar-fcaa0-v3.web.app",
+  "verifiedAt": "2026-11-22T06:30:53.413Z",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "64beee1fc0f3385e2234ad94afb742332e7c4e68dc33515d6295b5ac9bf95d00"
+    },
+    {
+      "file": "app.html",
+      "sha256": "64beee1fc0f3385e2234ad94afb742332e7c4e68dc33515d6295b5ac9bf95d00"
+    },
+    {
+      "file": "demo.html",
+      "sha256": "c6917fd90044057942b3bd7d15428cafa7be296e532c99bf4ef858ea08ccc018"
+    },
+    {
+      "file": "app.js",
+      "sha256": "69d6f1426347aec06a8b21c21d558aa2fbea4a0b6c04d4e33306fbc0ce3abf4d"
+    },
+    {
+      "file": "appearance.js",
+      "sha256": "6cc1b7269605657a42bf6a858e9efeb9253dbc94c2dd666ca1d4b613c0a098b4"
+    },
+    {
+      "file": "appearance.css",
+      "sha256": "df2413ad9162240fdfd7540ff616719260d50b91342e1d0c42270dc813578cab"
+    },
+    {
+      "file": "fonts.css",
+      "sha256": "a3740874518ed4b86963bdfd2a6dc7e581df2b3054a7ed028e1c6f517459fed7"
+    },
+    {
+      "file": "demo-sw.js",
+      "sha256": "300d3a62d654d2f3d3fa70eb14090e29843389375b347a621cec76611fa80823"
+    },
+    {
+      "file": "version.json",
+      "sha256": "7fb12e62040e3157174f3ddc50ad5acdabe11e63f1f3b5bd4bbc75c12db54f94"
+    },
+    {
+      "file": "firebase-client.js",
+      "sha256": "c676d666cc52ed4fbab3466423d55d4132880d1652bc8a5c086d2cbcc6643aa7"
+    },
+    {
+      "file": "firebase-messaging-sw.js",
+      "sha256": "72b00da84c5abf477a50a5f6e5471ceea058087a825d00b4e2288ca694eaeaae"
+    },
+    {
+      "file": "backend-firebase.js",
+      "sha256": "58f2cb223c30dda147bf8322c4c4290f3b9adc03881b8b9db48a464a0aa23f8d"
+    },
+    {
+      "file": "cloud.js",
+      "sha256": "3e2d7bd1b4d447d364dc791eb6b9700943cbfee305d64104c661ea0ab3eafcf6"
+    },
+    {
+      "file": "account-cache.mjs",
+      "sha256": "d22457ee407a717a49f76bfd3af44b84449eeb133d456a903f1aaaaedf7d2568"
+    },
+    {
+      "file": "privacy.html",
+      "sha256": "7b46c6e6082c8fe7efb5a47496d15dd3a38006549decd6973c4792dee625419a"
+    },
+    {
+      "file": "licenses/THIRD_PARTY_NOTICES.txt",
+      "sha256": "bb753b92a97513ab5077bd7b05818d2e5752c97eb2fc3e89a0ac380bcbb3c498"
+    },
+    {
+      "file": "licenses/firebase-js-sdk-LICENSE.txt",
+      "sha256": "065e45b5674f9bf76670496e5472611b3fbd87fbeaf99336725430a9909cb687"
+    },
+    {
+      "file": "assets/themes/campus.jpg",
+      "sha256": "c1a124955bb84288563e742e586fe0d97332db15f0567b601722a9e0fd337d91"
+    },
+    {
+      "file": "assets/themes/notebook.jpg",
+      "sha256": "7fe3e82d1491e5e2029601287bc76e61511bf5fd5147c8793da46365729111d7"
+    },
+    {
+      "file": "assets/themes/horizon.jpg",
+      "sha256": "b1e13c59222a0c26d92d6d507f36806999aeff0f91f679c7a7c662bc34329420"
+    }
+  ]
+}

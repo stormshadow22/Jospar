@@ -1,0 +1,16 @@
+{
+  "project": "jospar-fcaa0",
+  "appId": "1:166722255494:web:19ac555070ce93f2d56f07",
+  "provider": "recaptcha-enterprise",
+  "siteKey": "6LcViSwuAAAAAA4nJ8PDvofp4KgLUW3OBSY5g9Dm",
+  "allowedDomains": [
+    "jospar-fcaa0-v3.web.app",
+    "jospar-fcaa0-v3.firebaseapp.com"
+  ],
+  "tokenTtlSeconds": 86400,
+  "enforcement": "ENFORCED",
+  "billingEnabled": false,
+  "service": "firestore.googleapis.com",
+  "liveTokenVerified": true,
+  "verifiedAt": "2026-11-22T06:30:37.670Z"
+}

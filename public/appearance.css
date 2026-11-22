@@ -94,3 +94,5 @@ body.has-user{background-color:var(--bg);background-image:linear-gradient(var(--
 @media print{body.has-user{background:#fff}.back-row{display:none}.center:not([data-view=today]) #body{box-shadow:none}.welcome{background:none;border:0}.welcome-copy{padding:0;background:none}.welcome h1,.welcome p,.welcome .eyebrow{color:#000}}
 
 .mnav-add,.mc button.t{box-shadow:none}
+
+.auth-privacy{font-size:12px;text-align:center;margin:12px 0 0}.settings-privacy{font-size:13px;margin:0}.privacy-page{max-width:880px;margin:auto;padding:28px 24px 64px}.privacy-page article{padding:28px 0}.privacy-page h1{font-size:30px}.privacy-page h2{font-size:20px;margin-top:30px}.privacy-page p{line-height:1.75}.privacy-page a{overflow-wrap:anywhere}@media(max-width:700px){.grecaptcha-badge{bottom:calc(84px + env(safe-area-inset-bottom))!important}}
